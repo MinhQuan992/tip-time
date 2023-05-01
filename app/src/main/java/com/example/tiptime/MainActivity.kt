@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.tiptime.ui.component.EditNumberField
+import com.example.tiptime.ui.component.RoundTheTipRow
 import com.example.tiptime.ui.component.calculateTip
 import com.example.tiptime.ui.theme.TipTimeTheme
 
@@ -54,10 +55,13 @@ fun TipTimeScreen() {
         var tipInput by remember {
             mutableStateOf("")
         }
+        var roundUp by remember {
+            mutableStateOf(false)
+        }
 
         val amount = amountInput.toDoubleOrNull() ?: 0.0
         val tipPercent = tipInput.toDoubleOrNull() ?: 0.0
-        val tip = calculateTip(amount, tipPercent)
+        val tip = calculateTip(amount, tipPercent, roundUp)
 
         val focusManager = LocalFocusManager.current
 
@@ -87,6 +91,7 @@ fun TipTimeScreen() {
             keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
             value = tipInput,
             onValueChange = { tipInput = it })
+        RoundTheTipRow(roundUp = roundUp, onRoundUpChange = { roundUp = it })
         Spacer(Modifier.height(24.dp))
         Text(
             text = stringResource(R.string.tip_amount, tip),

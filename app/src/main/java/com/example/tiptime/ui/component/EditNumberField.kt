@@ -9,8 +9,8 @@ import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.KeyboardType
 import java.text.NumberFormat
+import kotlin.math.ceil
 
 @Composable
 fun EditNumberField(
@@ -34,8 +34,11 @@ fun EditNumberField(
 
 fun calculateTip(
     amount: Double,
-    tipPercent: Double = 15.0
+    tipPercent: Double = 15.0,
+    roundUp: Boolean
 ): String {
-    val tip = tipPercent / 100 * amount
+    var tip = tipPercent / 100 * amount
+    if (roundUp)
+        tip = ceil(tip)
     return NumberFormat.getCurrencyInstance().format(tip)
 }
