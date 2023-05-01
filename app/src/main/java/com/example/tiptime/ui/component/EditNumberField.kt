@@ -2,6 +2,7 @@ package com.example.tiptime.ui.component
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
@@ -14,6 +15,8 @@ import java.text.NumberFormat
 @Composable
 fun EditNumberField(
     @StringRes label: Int,
+    keyboardOptions: KeyboardOptions,
+    keyboardActions: KeyboardActions,
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier
@@ -24,7 +27,8 @@ fun EditNumberField(
         label = { Text(text = stringResource(id = label)) },
         modifier = Modifier.fillMaxWidth(),
         singleLine = true,
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+        keyboardOptions = keyboardOptions,
+        keyboardActions = keyboardActions
     )
 }
 
